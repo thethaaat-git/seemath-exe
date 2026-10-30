@@ -1,0 +1,433 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --bg-main: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --text-main: #000000;
+  --text-muted: #475569;
+  --accent: #2563eb;
+  --border-color: #e2e8f0;
+  --btn-bg: #f1f5f9;
+  --btn-bg-hover: #e2e8f0;
+  --input-bg: #ffffff;
+  --ui-font: "Inter", -apple-system, sans-serif;
+}
+
+body.dark-theme {
+  --bg-main: #000000;
+  --bg-sidebar: #0f0f0f;
+  --text-main: #ffffff;
+  --text-muted: #a1a1aa;
+  --accent: #3b82f6;
+  --border-color: #27272a;
+  --btn-bg: #18181b;
+  --btn-bg-hover: #27272a;
+  --input-bg: #09090b;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--ui-font);
+  overflow: hidden;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.sidebar {
+  width: 320px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s,
+    border-color 0.3s;
+}
+.sidebar.hidden-panel {
+  transform: translateX(-100%);
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.sidebar h2 {
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-main);
+}
+.header-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--btn-bg);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  color: var(--text-main);
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+.icon-btn:hover {
+  background: var(--btn-bg-hover);
+}
+.icon-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+body.dark-theme .icon-btn img {
+  filter: invert(1);
+}
+
+#equation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+#equation-list li {
+  padding: 12px 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-weight: 600;
+  border: 1px solid transparent;
+  color: var(--text-main);
+}
+#equation-list li:hover {
+  background-color: var(--btn-bg-hover);
+  border-color: var(--border-color);
+}
+#equation-list li.active {
+  background: var(--btn-bg-hover);
+  color: var(--accent);
+  border-color: var(--border-color);
+}
+
+button {
+  border: 1px solid var(--border-color);
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--ui-font);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  background: var(--btn-bg);
+  transition: all 0.2s;
+}
+button:hover {
+  background: var(--btn-bg-hover);
+}
+.primary-btn {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+.primary-btn:hover {
+  opacity: 0.9;
+}
+.secondary-btn {
+  background: var(--btn-bg);
+}
+.success-btn {
+  background: #10b981;
+  color: #fff;
+  border-color: transparent;
+}
+.danger-btn {
+  background: #ef4444;
+  color: #fff;
+  border-color: transparent;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 40px;
+  padding-left: 380px;
+  overflow-y: auto;
+  transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+body.sidebar-closed .main-content {
+  padding-left: 80px;
+}
+
+.floating-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  background: var(--bg-sidebar);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+.floating-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+
+.placeholder {
+  color: var(--text-main);
+  font-weight: 700;
+  text-align: center;
+  margin-top: 20vh;
+}
+.operation-block {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.op-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-main);
+}
+.op-circle {
+  font-size: 1.4rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.math-line {
+  font-size: 1.4rem;
+  line-height: 2.2;
+  margin-left: 30px;
+  font-weight: 600;
+  color: var(--text-main);
+  padding: 10px 0;
+  display: block;
+}
+
+.math-rule {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--text-main);
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* Убираем жесткий размер шрифта, чтобы он наследовался от math-line */
+.katex {
+  font-size: 1.1em;
+  color: var(--text-main);
+}
+/* Принудительный курсив для KaTeX в правилах */
+.math-rule .katex,
+.math-rule .katex * {
+  font-style: italic !important;
+}
+
+.path-choice-block {
+  margin: 20px 0;
+  padding: 10px 0;
+}
+.path-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+.path-btn {
+  background: var(--btn-bg);
+  color: var(--text-main);
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+.path-btn:hover {
+  background: var(--btn-bg-hover);
+}
+.path-btn.active {
+  background: var(--btn-bg-hover);
+  color: var(--accent);
+  border-color: var(--border-color);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: var(--bg-main);
+  padding: 30px;
+  border-radius: 16px;
+  width: 95%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+.modal-content h2 {
+  margin-top: 0;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 8px;
+  font-family: var(--ui-font);
+  font-size: 1.05rem;
+  font-weight: 500;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input[type="text"]:focus,
+select:focus {
+  border-color: var(--accent);
+}
+
+.step-edit-block,
+.branch-edit-block,
+.variant-edit-block {
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+.line-inputs {
+  margin-bottom: 15px;
+  background: var(--input-bg);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.delete-step-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  padding: 0 5px;
+  box-shadow: none;
+  font-weight: bold;
+}
+.delete-step-btn:hover {
+  background: transparent;
+  color: #dc2626;
+  transform: scale(1.1);
+}
+
+.variant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.math-toolbar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.math-toolbar button {
+  background-color: var(--btn-bg);
+  color: var(--text-main);
+  padding: 4px 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+.math-toolbar button:hover {
+  background-color: var(--btn-bg-hover);
+  color: var(--accent);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeeMath</title>
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+    
+    <!-- KaTeX для красивых формул -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Кнопка открытия меню (появляется, когда панель скрыта) -->
+    <button id="open-sidebar-btn" class="floating-btn hidden">☰</button>
+
+    <!-- Боковая панель -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Уравнения</h2>
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-btn" title="Сменить тему">
+                    <img id="theme-icon" src="/assets/sun.png" alt="Theme">
+                </button>
+                <button id="close-sidebar-btn" class="icon-btn" title="Скрыть меню">✖</button>
+            </div>
+        </div>
+
+        <ul id="equation-list"></ul>
+        <button id="add-eq-btn" class="primary-btn">+ Новое уравнение</button>
+    </div>
+
+    <!-- Главный экран -->
+    <div class="main-content" id="main-content">
+        <div id="content-area" style="width: 100%; max-width: 1200px;">
+            <h1 class="placeholder">Выбери уравнение слева или создай новое</h1>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактора -->
+    <div id="editor-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Редактор уравнения</h2>
+            
+            <label>Название уравнения:</label>
+            <input type="text" id="edit-uname" placeholder="Например: Пример с корнями">
+
+            <div id="steps-container"></div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="add-step-btn" class="secondary-btn" style="margin-bottom: 0;">+ Обычный шаг (①, ②...)</button>
+                <button id="add-branch-btn" class="branch-btn" style="margin-bottom: 0;">+ Развилка решений</button>
+            </div>
+
+            <div class="modal-actions">
+                <button id="cancel-btn" class="danger-btn">Отмена</button>
+                <button id="save-btn" class="success-btn">Сохранить в lib.json</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
